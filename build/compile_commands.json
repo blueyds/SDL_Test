@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/Users/craignunemaker/Documents/SDL_Test/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -I/opt/homebrew/include -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -mmacosx-version-min=15.0 -o CMakeFiles/sandbox.dir/main.cpp.o -c /Users/craignunemaker/Documents/SDL_Test/main.cpp",
+  "file": "/Users/craignunemaker/Documents/SDL_Test/main.cpp",
+  "output": "CMakeFiles/sandbox.dir/main.cpp.o"
+},
+{
+  "directory": "/Users/craignunemaker/Documents/SDL_Test/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -I/opt/homebrew/include -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -mmacosx-version-min=15.0 -o CMakeFiles/sandbox.dir/game.cpp.o -c /Users/craignunemaker/Documents/SDL_Test/game.cpp",
+  "file": "/Users/craignunemaker/Documents/SDL_Test/game.cpp",
+  "output": "CMakeFiles/sandbox.dir/game.cpp.o"
+}
+]
