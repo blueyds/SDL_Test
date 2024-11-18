@@ -1,11 +1,13 @@
 #ifndef AA3560F9_1506_4808_BE08_5FF69771CB4A
 #define AA3560F9_1506_4808_BE08_5FF69771CB4A
-#include <SDL2/SDL.h>
+#include <SDL.h>
+
 
 class Game {
 private:
   /* data */
   bool isRunning;
+  int cnt = 0;
   SDL_Window *window;
   SDL_Renderer *renderer;
 
