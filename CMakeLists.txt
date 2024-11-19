@@ -4,10 +4,15 @@ project(sandbox VERSION 0.1.0 LANGUAGES C CXX)
 find_path(SDL2_INCLUDE_DIR "SDL.h")
 if(NOT ${SDL2_INCLUDE_DIR})
     find_path(SDL2_INCLUDE_DIR "SDL.h" PATH_SUFFIXES "SDL2")
+endif()
+
 find_library(SDL2_LIBRARY SDL2)
 
 find_library(SDL2_IMAGE SDL2_image)
-find_path(SDL2_IMAGE_INCLUDE_DIR "SDL_Image.h")
+find_path(SDL2_IMAGE_INCLUDE_DIR "SDL_image.h")
+if(NOT ${SDL2_IMAGE_INCLUDE_DIR})
+    find_path(SDL2_IMAGE_INCLUDE_DIR "SDL_image.h" PATH_SUFFIXES "SDL2")
+endif()
 
 # add log messages
 message([STATUS] "CMAKE_SYSTEM_PREFIX_PATH" ${CMAKE_SYSTEM_PREFIX_PATH})

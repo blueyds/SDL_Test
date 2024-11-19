@@ -1,10 +1,9 @@
-#include <iostream>
-#include <SDL_Image.h>
 #include "game.hpp"
-
+#include "SDL_image.h"
+#include <iostream>
 
 SDL_Texture *playerTex;
-SDL_Rect srcR, dstR;
+SDL_Rect srcR, destR;
 
 Game::Game(/* args */) {}
 
@@ -33,7 +32,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   } else {
     isRunning = false;
   }
-  SDL_Surface *tmpSurface = IMG_LOAD("assets/Sara_16x18_Preview.png");
+  SDL_Surface *tmpSurface = IMG_Load("../assets/Sara_16x18_Preview.png");
   playerTex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
   SDL_FreeSurface(tmpSurface);
 }
@@ -55,13 +54,13 @@ void Game::update() {
   cnt++;
   destR.h = 64;
   destR.w = 64;
-  destR.w = cnt;
+  destR.x = cnt;
 }
 
 void Game::render() {
   SDL_RenderClear(renderer);
   // this is where we add stuff to render
-  SDL_RenderCopy(renderer, playerTex, NULL, destR); 
+  SDL_RenderCopy(renderer, playerTex, NULL, &destR);
   SDL_RenderPresent(renderer);
 }
 
