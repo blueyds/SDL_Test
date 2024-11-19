@@ -1,3 +1,0 @@
-/Users/craignunemaker/Documents/SDL_Test/build/CMakeFiles/sandbox.dir
-/Users/craignunemaker/Documents/SDL_Test/build/CMakeFiles/edit_cache.dir
-/Users/craignunemaker/Documents/SDL_Test/build/CMakeFiles/rebuild_cache.dir
