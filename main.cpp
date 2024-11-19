@@ -7,6 +7,7 @@ int main(int, char **) {
   const int frameDelay = 1000 / FPS;
   uint32_t frameStart;
   int frameTime;
+
   game = new Game();
   game->init("Craig Game", 0, 0, 800, 600, false);
 

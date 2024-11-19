@@ -2,7 +2,6 @@
 #define AA3560F9_1506_4808_BE08_5FF69771CB4A
 #include <SDL.h>
 
-
 class Game {
 private:
   /* data */
