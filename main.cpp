@@ -25,4 +25,5 @@ int main(int, char **) {
 	};
 	game->clean();
 	delete (game);
+	
 }
