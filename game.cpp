@@ -52,6 +52,7 @@ void Game::handleEvents() {
 }
 void Game::update() {
   cnt++;
+  std::cout << cnt << std::endl;
   destR.h = 64;
   destR.w = 64;
   destR.x = cnt;
