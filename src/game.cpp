@@ -32,6 +32,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   } else {
     isRunning = false;
   }
+	
   SDL_Surface *tmpSurface = IMG_Load("../assets/Sara_16x18_Preview.png");
   playerTex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
   SDL_FreeSurface(tmpSurface);
