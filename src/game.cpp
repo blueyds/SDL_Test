@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "TextureManager.hpp"
 #include "SDL_image.h"
 #include <iostream>
 
@@ -34,8 +35,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   }
 
   SDL_Surface *tmpSurface = IMG_Load("./assets/Sara_16x18_Preview.png");
-  playerTex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-  SDL_FreeSurface(tmpSurface);
+  playerTex = TextureManager::LoadTexture("./assets/Sara_16x18_Preview.png", renderer);
 }
 
 void Game::handleEvents() {
