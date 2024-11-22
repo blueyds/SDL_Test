@@ -18,7 +18,7 @@ message([STATUS] "SDL_INCLUDE_DIR" ${SDL2_INCLUDE_DIR})
 message([STATUS] "SDL2_IMAGE" ${SDL2_IMAGE})
 message([STATUS] "SDL2_IMAGE_INCLUDE_DIR" ${SDL2_IMAGE_INCLUDE_DIR})
 
-add_executable(sandbox main.cpp game.cpp)
+add_executable(sandbox main.cpp game.cpp TextureManager.cpp)
 
 target_include_directories(
     sandbox PUBLIC
