@@ -1,9 +1,9 @@
-#include <iostream>
-#include "SDL_image.h"
 #include "game.hpp"
+#include "SDL_image.h"
 #include "gameObject.hpp"
+#include <iostream>
 
-GameObject* player;
+GameObject *player;
 
 Game::Game(/* args */) {}
 
@@ -34,7 +34,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   } else {
     isRunning = false;
   }
-  player = new GameObject("assets/player.png");
+  player = new GameObject("assets/player.png", 0, 0);
 }
 
 void Game::handleEvents() {
@@ -50,9 +50,7 @@ void Game::handleEvents() {
     break;
   }
 }
-void Game::update() {
-  player->update();
-}
+void Game::update() { player->update(); }
 
 void Game::render() {
   SDL_RenderClear(renderer);
