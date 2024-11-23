@@ -9,6 +9,8 @@ Game::Game(/* args */) {}
 
 Game::~Game() {}
 
+SDL_Renderer * Game::renderer = nullptr;
+
 void Game::init(const char *title, int xpos, int ypos, int width, int height,
                 bool fullscreen) {
   int flags = 0;
@@ -23,16 +25,16 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
     } else {
       std::cout << "Window Failed" << std::endl;
     }
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    Game::renderer = SDL_CreateRenderer(window, -1, 0);
     if (renderer) {
-      SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+      SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
       std::cout << "Renderer created!" << std::endl;
     }
     isRunning = true;
   } else {
     isRunning = false;
   }
-  player = new GameObject("assets/player.png", renderer);
+  player = new GameObject("assets/player.png");
 }
 
 void Game::handleEvents() {

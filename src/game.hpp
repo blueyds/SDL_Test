@@ -8,8 +8,7 @@ private:
   bool isRunning;
   int cnt = 0;
   SDL_Window *window;
-  SDL_Renderer *renderer;
-
+  
 public:
   Game(/* args */);
   ~Game();
@@ -20,6 +19,8 @@ public:
   void render();
   void clean();
   bool running() { return isRunning; }
+  
+  static SDL_Renderer *renderer;
 };
 
 #endif // AA3560F9_1506_4808_BE08_5FF69771CB4A

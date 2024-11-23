@@ -9,7 +9,7 @@ int main(int, char **) {
 	int frameTime;
 
 	game = new Game();
-	game->init("Craig Game", 0, 0, 800, 600, false);
+	game->init("Craig Game", 0, 0, 800, 640, false);
 
 	while (game->running()) {
 		frameStart = SDL_GetTicks();
