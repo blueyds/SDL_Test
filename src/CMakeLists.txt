@@ -23,6 +23,7 @@ add_executable(sandbox
     game.cpp 
     TextureManager.cpp
     gameObject.cpp
+    Map.cpp
 )
 
 target_include_directories(

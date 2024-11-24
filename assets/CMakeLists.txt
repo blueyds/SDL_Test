@@ -4,4 +4,7 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/assets)
 file(COPY
     Sara_16x18_Preview.png
     Sara16x18.png
-    DESTINATION ${CMAKE_BINARY_DIR}/assets)
+    dirt.png 
+    grass.png 
+    water.png 
+    DESTINATION ${CMAKE_BINARY_DIR}/assets/)
