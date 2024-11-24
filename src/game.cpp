@@ -1,15 +1,17 @@
 #include "game.hpp"
+#include "Map.h"
 #include "SDL_image.h"
 #include "gameObject.hpp"
 #include <iostream>
 
 GameObject *player;
+Map *map;
 
 Game::Game(/* args */) {}
 
 Game::~Game() {}
 
-SDL_Renderer * Game::renderer = nullptr;
+SDL_Renderer *Game::renderer = nullptr;
 
 void Game::init(const char *title, int xpos, int ypos, int width, int height,
                 bool fullscreen) {
@@ -35,6 +37,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
     isRunning = false;
   }
   player = new GameObject("assets/player.png", 0, 0);
+  map = new Map();
 }
 
 void Game::handleEvents() {
@@ -55,6 +58,7 @@ void Game::update() { player->update(); }
 void Game::render() {
   SDL_RenderClear(renderer);
   // this is where we add stuff to render
+  map->DrawMap();
   player->render();
   SDL_RenderPresent(renderer);
 }
