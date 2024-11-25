@@ -2,48 +2,28 @@ cmake_minimum_required(VERSION 3.26)
 set(CMAKE_CXX_STANDARD 20)
 project(sandbox VERSION 0.1.0 LANGUAGES C CXX)
 
-find_path(SDL2_INCLUDE_DIR "SDL.h")
-if(NOT ${SDL2_INCLUDE_DIR})
-    find_path(SDL2_INCLUDE_DIR "SDL.h" PATH_SUFFIXES "SDL2")
-endif()
-
-find_library(SDL2_LIBRARY SDL2)
-
-find_library(SDL2_IMAGE SDL2_image)
-find_path(SDL2_IMAGE_INCLUDE_DIR "SDL_image.h")
-if(NOT ${SDL2_IMAGE_INCLUDE_DIR})
-    find_path(SDL2_IMAGE_INCLUDE_DIR "SDL_image.h" PATH_SUFFIXES "SDL2")
-endif()
-
-# add log messages
-message([STATUS] "CMAKE_SYSTEM_PREFIX_PATH" ${CMAKE_SYSTEM_PREFIX_PATH})
-message([STATUS] "SDL2_LIBRARY" ${SDL2_LIBRARY})
-message([STATUS] "SDL_INCLUDE_DIR" ${SDL2_INCLUDE_DIR})
-message([STATUS] "SDL2_IMAGE" ${SDL2_IMAGE})
-message([STATUS] "SDL2_IMAGE_INCLUDE_DIR" ${SDL2_IMAGE_INCLUDE_DIR})
-
+add_subdirectory(src)
 add_executable(sandbox 
-    main.cpp 
-    game.cpp 
-    TextureManager.cpp
-    gameObject.cpp
-    Map.cpp
-)
-
+    ${sandbox_sources})
 
 target_include_directories(
     sandbox PUBLIC
-    ${SDL2_INCLUDE_DIR}
-    ${SDL2_IMAGE_INCLUDE_DIR}
-)
+    ${sandbox_include_directories})
 
-target_link_libraries(sandbox ${SDL2_LIBRARY} ${SDL2_IMAGE})
+target_link_libraries(sandbox 
+    ${sandbox_libraries})
 
-add_custom_command(TARGET sandbox POST_BUILD
-      COMMAND ${CMAKE_COMMAND} -E copy
-            assets/Sara_16x18_Preview.png
-            assets/dirt.png 
-            assets/grass.png 
-            assets/water.png 
-            ${CMAKE_BINARY_DIR}
-)
+# post buildl make assets directoro and copy file
+add_subdirectory(assets)
+add_dependencies(sandbox copyAssets)
+#add_custom_target(asset_dir
+#    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/assets)
+#add_custom_target(dirt_png DEPENDS asset_dir
+#    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/assets/dirt.png ${CMAKE_BINARY_DIR})
+#add_custom_target(sara_png DEPENDS asset_dir
+#    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/assets/Sara_16x18_Preview.png ${CMAKE_BINARY_DIR})
+#add_custom_target(grass_png DEPENDS asset_dir
+#    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/assets/grass.png ${CMAKE_BINARY_DIR})
+#add_custom_target(water_png DEPENDS asset_dir
+#    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/assets/water.png ${CMAKE_BINARY_DIR})
+#add_dependencies(sandbox dirt_png water_png grass_png sara_png)

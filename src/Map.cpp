@@ -15,7 +15,7 @@ int lvl1[20][25] = {
      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 5
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 6
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 7
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 8
@@ -45,9 +45,9 @@ int lvl1[20][25] = {
      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} // 20
 };
 Map::Map() {
-  dirt = TextureManager::LoadTexture("assets/dirt.png");
-  grass = TextureManager::LoadTexture("assets/grass.png");
-  water = TextureManager::LoadTexture("assets/water.png");
+  dirt = TextureManager::LoadTexture("dirt.png");
+  grass = TextureManager::LoadTexture("grass.png");
+  water = TextureManager::LoadTexture("water.png");
 
   LoadMap(lvl1);
   src.x = src.y = 0;
