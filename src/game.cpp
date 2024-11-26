@@ -44,7 +44,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   }
   // player = new GameObject("Sara_16x18_Preview.png", 0, 0);
   map = new Map();
-  player.addComponent<PositionComponent>();
+  player.addComponent<TransformComponent>();
   player.addComponent<SpriteComponent>("Sara_16x18_Preview.png");
 }
 
@@ -65,9 +65,9 @@ void Game::update() {
   // player->update();
   manager.refresh();
   manager.update();
-  int x = player.getComponent<PositionComponent>().x();
-  int y = player.getComponent<PositionComponent>().y();
-  std::cout << x << "," << y << std::endl;
+  player.getComponent<TransformComponent>.position.Add(Vector2D(5,0));
+  
+  std::cout << player.getComponent<TransformComponent>() << std::endl;
 }
 
 void Game::render() {

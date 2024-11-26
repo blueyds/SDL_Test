@@ -1,6 +1,6 @@
 #ifndef SPRITE_COMPONENT_H_5674
 #define SPRITE_COMPONENT_H_5674
-#include "../TextureManager.hpp"
+#include <TextureManager.hpp>
 #include "Components.h"
 #include <SDL.h>
 
@@ -10,7 +10,7 @@ public:
   SpriteComponent(const char *path) { setTex(path); }
   void setTex(const char *path) { texture = TextureManager::LoadTexture(path); }
   void init() override {
-    position = &entity->getComponent<PositionComponent>();
+    transform = &entity->getComponent<TransformComponent>();
     srcRect.y = srcRect.x = 0;
     srcRect.h = 32;
     srcRect.w = 32;
@@ -19,14 +19,14 @@ public:
   }
 
   void update() override {
-    destRect.x = position->x();
-    destRect.y = position->y();
+    destRect.x = (int)transform->position.x;
+    destRect.y = (int)transform->position.y;
   }
 
   void draw() override { TextureManager::Draw(texture, srcRect, destRect); }
 
 private:
-  PositionComponent *position;
+  TransformComponent *transform;
   SDL_Texture *texture;
   SDL_Rect srcRect;
   SDL_Rect destRect;
