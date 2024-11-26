@@ -24,6 +24,7 @@ set(sandbox_sources
     ${CMAKE_CURRENT_SOURCE_DIR}/TextureManager.cpp 
     ${CMAKE_CURRENT_SOURCE_DIR}/gameObject.cpp 
     ${CMAKE_CURRENT_SOURCE_DIR}/Map.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Vector2D.cpp
     PARENT_SCOPE)
 
 set(sandbox_include_directories 

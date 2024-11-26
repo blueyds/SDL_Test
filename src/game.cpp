@@ -65,9 +65,9 @@ void Game::update() {
   // player->update();
   manager.refresh();
   manager.update();
-  player.getComponent<TransformComponent>.position.Add(Vector2D(5,0));
-  
-  std::cout << player.getComponent<TransformComponent>() << std::endl;
+  player.getComponent<TransformComponent>().position.Add(Vector2D(0, 5));
+
+  std::cout << player.getComponent<TransformComponent>().position << std::endl;
 }
 
 void Game::render() {
