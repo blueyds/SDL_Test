@@ -8,11 +8,11 @@
 #include "Components.h"
 #include "ECS.h"
 
-GameObject *player;
+//GameObject *player;
 Map *map;
 
 Manager manager;
-auto &newPlayer(manager.addEntity());
+auto &layer(manager.addEntity());
 
 Game::Game(/* args */) {}
 
@@ -43,9 +43,10 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   } else {
     isRunning = false;
   }
-  player = new GameObject("Sara_16x18_Preview.png", 0, 0);
+ // player = new GameObject("Sara_16x18_Preview.png", 0, 0);
   map = new Map();
-  newPlayer.addComponent<PositionComponent>();
+  player.addComponent<PositionComponent>();
+  player.addComponent<SpriteComponent>("Sara_16x18_Preview.png");
 }
 
 void Game::handleEvents() {
@@ -62,10 +63,11 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-  player->update();
+  //player->update();
+	manager.refresh();
   manager.update();
-  int x = newPlayer.getComponent<PositionComponent>().x();
-  int y = newPlayer.getComponent<PositionComponent>().y();
+  int x = player.getComponent<PositionComponent>().x();
+  int y = player.getComponent<PositionComponent>().y();
   std::cout << x << "," << y << std::endl;
 }
 
@@ -73,7 +75,7 @@ void Game::render() {
   SDL_RenderClear(renderer);
   // this is where we add stuff to render
   map->DrawMap();
-  player->render();
+  //player->render();
   manager.draw();
   SDL_RenderPresent(renderer);
 }

@@ -1,7 +1,5 @@
-#ifndef COMPONENTS_HPP_78564567
-#define COMPONENTS_HPP_78564567
-
-#include "ECS.h"
+#ifndef POSITION_COMPONENT_HPP_1234351223
+#define POSITION_COMPONENT_HPP_1234351223
 
 class PositionComponent: public Component{
 public:
@@ -9,9 +7,13 @@ public:
 	
 	int y() { return ypos; }
 	
-	void init() override {
+	PositionComponent(){
 		xpos = 0;
-		ypos = 0;	
+		ypos = 0;
+	}
+	PositionComponent(int x, int y){
+		xpos = x;
+		ypos = y;
 	}
 	
 	void update() override {
