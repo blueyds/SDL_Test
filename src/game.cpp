@@ -46,24 +46,24 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   map = new Map();
   player.addComponent<TransformComponent>();
   player.addComponent<SpriteComponent>("Sara_16x18_Preview.png");
-  player.addComponent<KeyboardController>(&event)
+  player.addComponent<KeyboardController>(&event);
 }
 
 void Game::handleEvents() {
-	SDL_PollEvent(&event);
-	switch (event.type) {
-	case SDL_QUIT:
-		isRunning = false;
-		break;
-	default:
-		break;
-	}
+  SDL_PollEvent(&event);
+  switch (event.type) {
+  case SDL_QUIT:
+    isRunning = false;
+    break;
+  default:
+    break;
+  }
 }
 
 void Game::update() {
-	// player->update();
-	manager.refresh();
-	manager.update();
+  // player->update();
+  manager.refresh();
+  manager.update();
 }
 
 void Game::render() {
