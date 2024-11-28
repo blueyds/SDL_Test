@@ -1,7 +1,7 @@
 #ifndef SPRITE_COMPONENT_H_5674
 #define SPRITE_COMPONENT_H_5674
 #include <TextureManager.hpp>
-#include "Components.h"
+#include "ECS.h"
 #include <SDL.h>
 
 class SpriteComponent : public Component {
