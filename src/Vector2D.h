@@ -25,6 +25,10 @@ public:
   Vector2D &operator*=(const Vector2D &v2);
   Vector2D &operator/=(const Vector2D &v2);
 
+  Vector2D &operator*=(const int i);
+
+  Vector2D &Zero();
+
   friend std::ostream &operator<<(std::ostream &os, const Vector2D &vec);
 };
 

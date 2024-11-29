@@ -2,14 +2,15 @@
 #define KEYBOARD_CONTROLLER_H_43389210
 #include "ECS.h"
 #include <SDL.h>
+namespace ECS {
 
-class KeyboardController : public Component {
+class Keyboard : public Component {
 public:
-  TransformComponent *transform;
-  KeyboardController(SDL_Event *event) { this->event = event; }
+  ECS::Transformable *transform;
+  Keyboard(SDL_Event *event) { this->event = event; }
 
   void init() override {
-    transform = &entity->getComponent<TransformComponent>();
+    transform = &entity->getComponent<ECS::Transformable>();
   }
   void update() override {
     if (event->type == SDL_KEYDOWN) {
@@ -53,5 +54,5 @@ public:
 private:
   SDL_Event *event;
 };
-
+} // namespace ECS
 #endif

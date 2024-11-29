@@ -11,7 +11,7 @@
 // GameObject *player;
 Map *map;
 
-Manager manager;
+ECS::Manager manager;
 auto &player(manager.addEntity());
 auto &wall(manager.addEntity());
 Game::Game(/* args */) {}
@@ -45,15 +45,15 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   }
   // player = new GameObject("Sara_16x18_Preview.png", 0, 0);
   map = new Map();
-  player.addComponent<TransformComponent>(2);
-  player.addComponent<SpriteComponent>("Sara_16x18_Preview.png");
-  player.addComponent<KeyboardController>(&event);
+  player.addComponent<ECS::Transformable>(2);
+  player.addComponent<ECS::Sprite>("Sara_16x18_Preview.png");
+  player.addComponent<ECS::Keyboard>(&event);
 
-  player.addComponent<ColliderComponent>("player");
+  player.addComponent<ECS::Collider>("player");
 
-  wall.addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
-  wall.addComponent<SpriteComponent>("dirt.png");
-  wall.addComponent<ColliderComponent>("wall");
+  wall.addComponent<ECS::Transformable>(300.0f, 300.0f, 300, 20, 1);
+  wall.addComponent<ECS::Sprite>("dirt.png");
+  wall.addComponent<ECS::Collider>("wall");
 }
 
 void Game::handleEvents() {
@@ -71,11 +71,11 @@ void Game::update() {
   // player->update();
   manager.refresh();
   manager.update();
-
-  if (Collision::AABB(player.getComponent<ColliderComponent>().collider,
-                      wall.getComponent<ColliderComponent>().collider)) {
+  std::cout << player.getComponent<ECS::Transformable>().position << std::endl;
+  if (Collision::AABB(player.getComponent<ECS::Collider>().collider,
+                      wall.getComponent<ECS::Collider>().collider)) {
     std::cout << "Wall hit" << std::endl;
-    player.getComponent<TransformComponent>().scale = 1;
+    player.getComponent<ECS::Transformable>().velocity *= -1;
   }
 }
 

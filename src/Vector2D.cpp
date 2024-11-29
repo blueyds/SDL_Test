@@ -56,6 +56,12 @@ Vector2D &Vector2D::operator*=(const Vector2D &v2) {
   return this->Multiply(v2);
 }
 
+Vector2D &Vector2D::operator*=(const int i) {
+  this->x *= i;
+  this->y *= i;
+  return *this;
+}
+
 Vector2D &Vector2D::operator/=(const Vector2D &v2) { return this->Divide(v2); }
 
 std::ostream &operator<<(std::ostream &os, const Vector2D &vec) {

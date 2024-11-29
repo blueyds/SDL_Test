@@ -1,10 +1,10 @@
 #ifndef COMPONENTS_HPP_78564567
 #define COMPONENTS_HPP_78564567
-
-#include "ECS.h"
-#include "Components.h"
-#include "TransformComponent.h"
-#include "SpriteComponent.h"
-#include "KeyboardController.h"
 #include "ColliderComponent.h"
+#include "Components.h"
+#include "ECS.h"
+#include "KeyboardController.h"
+#include "SpriteComponent.h"
+#include "TransformComponent.h"
+
 #endif

@@ -7,6 +7,8 @@
 #include <memory>
 #include <vector>
 
+namespace ECS {
+
 class Component;
 class Entity;
 
@@ -106,5 +108,5 @@ public:
 private:
   std::vector<std::unique_ptr<Entity>> entities;
 };
-
+} // namespace ECS
 #endif

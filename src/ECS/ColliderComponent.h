@@ -2,21 +2,24 @@
 #define COLLIDER_COMPONENT_HPP_135732
 
 #include "ECS.h"
+#include "TransformComponent.h"
 #include <SDL.h>
 #include <string>
 
-class ColliderComponent : public Component {
+namespace ECS {
+
+class Collider : public Component {
 public:
   SDL_Rect collider;
   std::string tag;
-  TransformComponent *transform;
+  Transformable *transform;
 
-  ColliderComponent(std::string t) { tag = t; }
+  Collider(std::string t) { tag = t; }
   void init() override {
-    if (!entity->hasComponent<TransformComponent>()) {
-      entity->addComponent<TransformComponent>();
+    if (!entity->hasComponent<Transformable>()) {
+      entity->addComponent<Transformable>();
     }
-    transform = &entity->getComponent<TransformComponent>();
+    transform = &entity->getComponent<Transformable>();
   }
 
   void update() override {
@@ -26,5 +29,5 @@ public:
     collider.h = transform->scaledHeight();
   }
 };
-
+} // namespace ECS
 #endif
