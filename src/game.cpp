@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "Collision.h"
 #include "Map.h"
 #include "SDL_image.h"
 #include "game.hpp"
@@ -47,9 +48,10 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   player.addComponent<TransformComponent>(2);
   player.addComponent<SpriteComponent>("Sara_16x18_Preview.png");
   player.addComponent<KeyboardController>(&event);
+
   player.addComponent<ColliderComponent>("player");
-  
-  wall.addComponent<TransformComponent>(300.0f, 300.0f,300, 20, 1 );
+
+  wall.addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
   wall.addComponent<SpriteComponent>("dirt.png");
   wall.addComponent<ColliderComponent>("wall");
 }
@@ -69,12 +71,12 @@ void Game::update() {
   // player->update();
   manager.refresh();
   manager.update();
- 
-  if (Collision::AABB(player.getComponent<ColliderComponent>().collider, 
-  	wall.getComponent<ColliderComponent>().collider)){
-		std::cout << "Wall hit" << std::endl;
-		player.getCoomponent<TransformComponent>().scale = 1
-  	}
+
+  if (Collision::AABB(player.getComponent<ColliderComponent>().collider,
+                      wall.getComponent<ColliderComponent>().collider)) {
+    std::cout << "Wall hit" << std::endl;
+    player.getComponent<TransformComponent>().scale = 1;
+  }
 }
 
 void Game::render() {

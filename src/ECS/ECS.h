@@ -47,16 +47,16 @@ public:
       c->update();
   }
   void draw() {
-    for (auto &c : components) c->draw();
-
+    for (auto &c : components)
+      c->draw();
   }
 
   bool isActive() const { return active; }
 
   void destroy() { active = false; }
 
-  template <typename T> bool hasComponent() const {
-    return componentBitset[getComponentTypeID<T>]();
+  template <typename T> bool hasComponent() {
+    return componentBitset[getComponentTypeID<T>()];
   }
 
   template <typename T, typename... TArgs> T &addComponent(TArgs &&...mArgs) {

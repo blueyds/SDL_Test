@@ -25,6 +25,7 @@ set(sandbox_sources
     ${CMAKE_CURRENT_SOURCE_DIR}/gameObject.cpp 
     ${CMAKE_CURRENT_SOURCE_DIR}/Map.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Vector2D.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Collision.cpp
     PARENT_SCOPE)
 
 set(sandbox_include_directories 
