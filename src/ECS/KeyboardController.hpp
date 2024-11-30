@@ -1,7 +1,10 @@
 #ifndef KEYBOARD_CONTROLLER_H_43389210
 #define KEYBOARD_CONTROLLER_H_43389210
-#include "ECS.h"
+
 #include <SDL.h>
+#include "ECS.h"
+#include "TransformComponent.hpp"
+
 namespace ECS {
 
 class Keyboard : public Component {

@@ -1,10 +1,10 @@
 #ifndef COLLIDER_COMPONENT_HPP_135732
 #define COLLIDER_COMPONENT_HPP_135732
 
-#include "ECS.h"
-#include "TransformComponent.h"
 #include <SDL.h>
 #include <string>
+#include "ECS.h"
+#include "TransformComponent.h"
 
 namespace ECS {
 

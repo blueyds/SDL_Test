@@ -1,8 +1,9 @@
 #ifndef SPRITE_COMPONENT_H_5674
 #define SPRITE_COMPONENT_H_5674
-#include "ECS.h"
+
 #include <SDL.h>
 #include <TextureManager.hpp>
+#include "TransformComponent.hpp"
 
 namespace ECS {
 class Sprite : public Component {
