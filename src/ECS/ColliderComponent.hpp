@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <string>
+#include <game.hpp>
 #include "ECS.hpp"
 #include "TransformComponent.hpp"
 
@@ -20,6 +21,7 @@ public:
       entity->addComponent<Transformable>();
     }
     transform = &entity->getComponent<Transformable>();
+    Game::colliders.push_back(this);
   }
 
   void update() override {

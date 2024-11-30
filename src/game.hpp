@@ -1,6 +1,8 @@
 #ifndef AA3560F9_1506_4808_BE08_5FF69771CB4A
 #define AA3560F9_1506_4808_BE08_5FF69771CB4A
 #include <SDL.h>
+#include <vector>
+class ECS::Collider;
 
 class Game {
 private:
@@ -21,6 +23,7 @@ public:
   bool running() { return isRunning; }
   
   static SDL_Renderer *renderer;
+  static std::vector<ECS::Collider*> colliders;	
 };
 
 #endif // AA3560F9_1506_4808_BE08_5FF69771CB4A
