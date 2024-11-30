@@ -1,19 +1,20 @@
 #ifndef SPRITE_COMPONENT_H_5674
 #define SPRITE_COMPONENT_H_5674
 
+#include "TransformComponent.hpp"
 #include <SDL.h>
 #include <TextureManager.hpp>
-#include "TransformComponent.hpp"
+#include <string>
 
 namespace ECS {
 class Sprite : public Component {
 public:
   Sprite() = default;
-  Sprite(const char *path) { setTex(path); }
+  Sprite(std::string path) { setTex(path); }
 
   ~Sprite() { SDL_DestroyTexture(texture); }
 
-  void setTex(const char *path) { texture = TextureManager::LoadTexture(path); }
+  void setTex(std::string path) { texture = TextureManager::LoadTexture(path); }
 
   void init() override {
     transform = &entity->getComponent<ECS::Transformable>();

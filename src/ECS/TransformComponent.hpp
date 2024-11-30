@@ -1,7 +1,7 @@
 #ifndef TRANSFORM_COMPONENT_HPP_1234351223
 #define TRANSFORM_COMPONENT_HPP_1234351223
 
-#include "ECS.h"
+#include "ECS.hpp"
 #include <Vector2D.hpp>
 
 namespace ECS {

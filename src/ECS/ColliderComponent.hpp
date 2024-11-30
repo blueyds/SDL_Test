@@ -1,27 +1,33 @@
 #ifndef COLLIDER_COMPONENT_HPP_135732
 #define COLLIDER_COMPONENT_HPP_135732
 
-#include <SDL.h>
-#include <string>
-#include <game.hpp>
+#include "../Collision.hpp"
 #include "ECS.hpp"
 #include "TransformComponent.hpp"
+#include <SDL.h>
+#include <string>
 
 namespace ECS {
 
 class Collider : public Component {
+
 public:
   SDL_Rect collider;
   std::string tag;
   Transformable *transform;
+  Collider *colliderTest;
+  Entity *testEntity;
 
-  Collider(std::string t) { tag = t; }
+  Collider(std::string t, Entity &entityToTestAgainst) {
+    tag = t;
+    testEntity = &entityToTestAgainst;
+  }
   void init() override {
     if (!entity->hasComponent<Transformable>()) {
       entity->addComponent<Transformable>();
     }
+    colliderTest = &testEntity->getComponent<Collider>();
     transform = &entity->getComponent<Transformable>();
-    Game::colliders.push_back(this);
   }
 
   void update() override {
@@ -29,6 +35,10 @@ public:
     collider.y = static_cast<int>(transform->position.y);
     collider.w = transform->scaledWidth();
     collider.h = transform->scaledHeight();
+
+    if (Collision::AABB(colliderTest, this)) {
+      testEntity->getComponent<Transformable>().velocity *= -1;
+    };
   }
 };
 } // namespace ECS
