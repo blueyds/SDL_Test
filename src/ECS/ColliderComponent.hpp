@@ -3,8 +3,8 @@
 
 #include <SDL.h>
 #include <string>
-#include "ECS.h"
-#include "TransformComponent.h"
+#include "ECS.hpp"
+#include "TransformComponent.hpp"
 
 namespace ECS {
 

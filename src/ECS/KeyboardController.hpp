@@ -2,7 +2,7 @@
 #define KEYBOARD_CONTROLLER_H_43389210
 
 #include <SDL.h>
-#include "ECS.h"
+#include "ECS.hpp"
 #include "TransformComponent.hpp"
 
 namespace ECS {

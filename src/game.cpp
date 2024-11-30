@@ -1,12 +1,12 @@
 #include <iostream>
 
-#include "Collision.h"
-#include "Map.h"
+#include "Collision.hpp"
+#include "Map.hpp"
 #include "SDL_image.h"
 #include "game.hpp"
 #include "gameObject.hpp"
 
-#include "ECS/Components.h"
+#include "ECS/Components.hpp"
 
 // GameObject *player;
 Map *map;

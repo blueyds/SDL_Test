@@ -2,7 +2,7 @@
 #define TRANSFORM_COMPONENT_HPP_1234351223
 
 #include "ECS.h"
-#include <Vector2D.h>
+#include <Vector2D.hpp>
 
 namespace ECS {
 class Transformable : public Component {
