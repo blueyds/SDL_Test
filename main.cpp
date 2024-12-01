@@ -1,14 +1,11 @@
 #include "game.hpp"
 #include <chrono>
 #include <thread>
+#include <Utilities.hpp>
 
 Game *game = nullptr;
 
-uint64_t getTicks() {
-  using namespace std::chrono;
-  return duration_cast<milliseconds>(system_clock::now().time_since_epoch())
-      .count();
-}
+
 int main(int, char **) {
   const int FPS = 60;
   const int frameDelay = 1000 / FPS;
@@ -19,7 +16,7 @@ int main(int, char **) {
   game->init("Craig Game", 0, 0, 800, 640, false);
 
   while (game->running()) {
-    frameStart = getTicks();
+    frameStart = Utilities::getTicks();
 
     game->handleEvents();
     game->update();

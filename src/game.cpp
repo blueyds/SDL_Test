@@ -58,6 +58,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   player.addComponent<ECS::Sprite>(std::string("Sara_16x18_Preview.png"));
   player.addComponent<ECS::Keyboard>(&event);
   player.addComponent<ECS::Collider>(std::string("player"), player);
+  
   player.addGroup(groupPlayers);
 
   wall.addComponent<ECS::Transformable>(300.0f, 300.0f, 300, 20, 1);

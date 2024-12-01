@@ -6,7 +6,11 @@ add_library(src_stuff
         Map.cpp
         Vector2D.cpp
         Collision.cpp
-        ECS/ECS.cpp
+	Utilities.cpp
+        ECS/Entity.cpp
+	ECS/Manager.cpp
+	ECS/AnimationComponent.cpp
+	ECS/TransformComponent.cpp
 )
 
 
