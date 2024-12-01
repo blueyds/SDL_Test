@@ -10,6 +10,9 @@ add_library(src_stuff
         ECS/Entity.cpp
 	ECS/Manager.cpp
 	ECS/AnimationComponent.cpp
+        ECS/KeyboardController.cpp
+        ECS/SpriteComponent.cpp
+        ECS/TileComponent.cpp
 	ECS/TransformComponent.cpp
 )
 

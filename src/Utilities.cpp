@@ -1,5 +1,5 @@
+#include "Utilities.hpp"
 #include <chrono>
-
 
 uint64_t Utilities::getTicks() {
   using namespace std::chrono;

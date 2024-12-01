@@ -1,10 +1,9 @@
 #include "game.hpp"
+#include <Utilities.hpp>
 #include <chrono>
 #include <thread>
-#include <Utilities.hpp>
 
 Game *game = nullptr;
-
 
 int main(int, char **) {
   const int FPS = 60;
@@ -22,7 +21,7 @@ int main(int, char **) {
     game->update();
     game->render();
 
-    frameTime = getTicks() - frameStart;
+    frameTime = Utilities::getTicks() - frameStart;
     if (frameDelay > frameTime) {
       std::this_thread::sleep_for(
           std::chrono::milliseconds(frameDelay - frameTime));
