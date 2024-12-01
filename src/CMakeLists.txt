@@ -6,6 +6,7 @@ add_library(src_stuff
         Map.cpp
         Vector2D.cpp
         Collision.cpp
+        ECS/ECS.cpp
 )
 
 

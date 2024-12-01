@@ -15,6 +15,12 @@ ECS::Manager manager;
 auto &player(manager.addEntity());
 auto &wall(manager.addEntity());
 
+enum groupLabels : std::size_t {
+  groupMap,
+  groupPlayers,
+  groupEnemies,
+  groupColliders
+};
 Game::Game(/* args */) {}
 
 Game::~Game() {}
@@ -52,10 +58,12 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   player.addComponent<ECS::Sprite>(std::string("Sara_16x18_Preview.png"));
   player.addComponent<ECS::Keyboard>(&event);
   player.addComponent<ECS::Collider>(std::string("player"), player);
+  player.addGroup(groupPlayers);
 
   wall.addComponent<ECS::Transformable>(300.0f, 300.0f, 300, 20, 1);
   wall.addComponent<ECS::Sprite>(std::string("dirt.png"));
   wall.addComponent<ECS::Collider>(std::string("wall"), player);
+  wall.addGroup(groupMap);
 }
 
 void Game::handleEvents() {
@@ -80,7 +88,10 @@ void Game::render() {
   // this is where we add stuff to render
   // map->DrawMap();
   // player->render();
-  manager.draw();
+  manager.drawGroup(groupMap);
+  manager.drawGroup(groupPlayers);
+  manager.drawGroup(groupEnemies);
+
   SDL_RenderPresent(renderer);
 }
 
@@ -94,4 +105,5 @@ void Game::clean() {
 void Game::addTile(int id, int x, int y) {
   auto &tile(manager.addEntity());
   tile.addComponent<ECS::Tile>(x, y, 32, 32, id);
+  tile.addGroup(groupMap);
 }
