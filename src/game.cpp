@@ -54,11 +54,13 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   map = new Map();
 
   Map::LoadMap("map16x16.map", 16, 16);
-  player.addComponent<ECS::Transformable>(2);
-  player.addComponent<ECS::Sprite>(std::string("Sara_16x18_Preview.png"));
+  player.addComponent<ECS::Transformable>(0, 0, 64, 48, 1);
+  player.addComponent<ECS::Sprite>(
+      std::string("universal-lpc-sprite_male_01_walk-3frame.png"));
+  player.addComponent<ECS::Animation>(3, 500);
   player.addComponent<ECS::Keyboard>(&event);
   player.addComponent<ECS::Collider>(std::string("player"), player);
-  
+
   player.addGroup(groupPlayers);
 
   wall.addComponent<ECS::Transformable>(300.0f, 300.0f, 300, 20, 1);

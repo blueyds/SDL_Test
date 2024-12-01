@@ -23,6 +23,7 @@ public:
   void init() override;
   void update() override;
   void play(int mIndex);
+  void play(int mIndex, int numFrames, int msPerFrame);
   void stop();
 };
 
