@@ -15,10 +15,6 @@ ECS::Manager manager;
 auto &player(manager.addEntity());
 auto &wall(manager.addEntity());
 
-auto &tile0(manager.addEntity());
-auto &tile1(manager.addEntity());
-auto &tile2(manager.addEntity());
-
 Game::Game(/* args */) {}
 
 Game::~Game() {}
@@ -51,16 +47,11 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   // player = new GameObject("Sara_16x18_Preview.png", 0, 0);
   map = new Map();
 
+  Map::LoadMap("map16x16.map", 16, 16);
   player.addComponent<ECS::Transformable>(2);
   player.addComponent<ECS::Sprite>(std::string("Sara_16x18_Preview.png"));
   player.addComponent<ECS::Keyboard>(&event);
   player.addComponent<ECS::Collider>(std::string("player"), player);
-
-  tile0.addComponent<ECS::Tile>(200, 200, 32, 32, 0);
-  tile1.addComponent<ECS::Tile>(250, 250, 32, 32, 1);
-  tile1.addComponent<ECS::Collider>(std::string("dirt"), player);
-  tile2.addComponent<ECS::Tile>(150, 150, 32, 32, 2);
-  tile2.addComponent<ECS::Collider>(std::string("grass"), player);
 
   wall.addComponent<ECS::Transformable>(300.0f, 300.0f, 300, 20, 1);
   wall.addComponent<ECS::Sprite>(std::string("dirt.png"));
@@ -98,4 +89,9 @@ void Game::clean() {
   SDL_DestroyRenderer(renderer);
   SDL_Quit();
   std::cout << "Game cleaned" << std::endl;
+}
+
+void Game::addTile(int id, int x, int y) {
+  auto &tile(manager.addEntity());
+  tile.addComponent<ECS::Tile>(x, y, 32, 32, id);
 }

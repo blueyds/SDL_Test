@@ -37,7 +37,7 @@ public:
     collider.h = transform->scaledHeight();
 
     if (Collision::AABB(colliderTest, this)) {
-      testEntity->getComponent<Transformable>().velocity *= -1;
+      //   testEntity->getComponent<Transformable>().velocity *= -1;
     };
   }
 };
