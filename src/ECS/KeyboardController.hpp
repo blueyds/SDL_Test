@@ -2,7 +2,7 @@
 #define KEYBOARD_CONTROLLER_H_43389210
 
 #include "TransformComponent.hpp"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 namespace ECS {
 class Animation;

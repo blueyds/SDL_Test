@@ -1,7 +1,7 @@
 #ifndef AA3560F9_1506_4808_BE08_5FF69771CB4A
 #define AA3560F9_1506_4808_BE08_5FF69771CB4A
 #include "ECS/ColliderComponent.hpp"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <vector>
 
 class Game {

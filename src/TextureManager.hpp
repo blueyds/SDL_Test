@@ -1,6 +1,6 @@
 #ifndef TEXTUREMANAGER_HPP
 #define TEXTUREMANAGER_HPP
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <string>
 
 class TextureManager {

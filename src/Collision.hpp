@@ -1,7 +1,7 @@
 #ifndef COLLISON_HPP_6739234
 #define COLLISON_HPP_6739234
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 namespace ECS {
 class Collider;

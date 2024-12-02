@@ -2,7 +2,7 @@
 #define TILE_COMPONENT_HPP_83478392
 
 #include "TransformComponent.hpp"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <string>
 
 namespace ECS {

@@ -1,12 +1,12 @@
 #ifndef COLLIDER_COMPONENT_HPP_135732
 #define COLLIDER_COMPONENT_HPP_135732
 
-#include "../Collision.hpp"
+#include "Collision.hpp"
 #include "Component.hpp"
 #include "Entity.hpp"
 #include "TransformComponent.hpp"
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <string>
 
 namespace ECS {
