@@ -55,8 +55,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   // player = new GameObject("Sara_16x18_Preview.png", 0, 0);
   map = new Map();
 
-  Map::LoadMap("map.csv",30,30);
-  player.addComponent<ECS::Transformable>(0, 0, 64, 48, 1);
+  player.addComponent<ECS::Transformable>(400,320, 64, 48, 1);
   player.addComponent<ECS::Sprite>(
       std::string("universal-lpc-sprite_male_01_walk-3frame.png"));
   player.addComponent<ECS::Animation>(3, 500);
@@ -64,6 +63,9 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   player.addComponent<ECS::Collider>(std::string("player"), player);
 
   player.addGroup(groupPlayers);
+
+
+  Map::LoadMap("map.csv",30,30);
 
 }
 
@@ -105,7 +107,9 @@ void Game::clean() {
 
 void Game::addTile(int srcX, int srcY, int xpos, int ypos) {
   auto &tile(manager.addEntity());
-  tile.addComponent<ECS::Tile>(srcX, srcY, xpos, ypos, mapFile);
+  // ERROR player has not been created when tiles are created. this results in null and segment fault
+  ECS::Transformable* pTrans = &player.getComponent<ECS::Transformable>();
+  tile.addComponent<ECS::Tile>(srcX, srcY, xpos, ypos, mapFile, pTrans);
   
   tile.addGroup(groupMap);
 }

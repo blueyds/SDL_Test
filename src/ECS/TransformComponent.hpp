@@ -22,8 +22,6 @@ public:
 
 	Transformable(float x, float y, int h, int w, int s);
   
-	void update() override;
-  
 	float scaledWidth();
 
 	float scaledHeight();

@@ -1,13 +1,16 @@
 #include "TileComponent.hpp"
 #include "Entity.hpp"
 #include "SpriteComponent.hpp"
+#include "TransformComponent.hpp"
 #include <TextureManager.hpp>
+#include <Vector2D.hpp>
 
 ECS::Tile::~Tile(){
   SDL_DestroyTexture(texture);
 }
 
-ECS::Tile::Tile(int srcX, int srcY, int xpos, int ypos, std::string path) {
+ECS::Tile::Tile(int srcX, int srcY, int xpos, int ypos, std::string path,ECS::Transformable* playerTrans) {
+  playerTransform = playerTrans;
   texture = TextureManager::LoadTexture(path);
 
   srcRect.x = srcX;
@@ -18,6 +21,11 @@ ECS::Tile::Tile(int srcX, int srcY, int xpos, int ypos, std::string path) {
   destRect.y = ypos;
   destRect.w = destRect.h = 32;
   
+}
+
+void ECS::Tile::update(){
+  destRect.x += -(playerTransform->velocity.x * playerTransform->speed );
+  destRect.y += -(playerTransform->velocity.y * playerTransform->speed );
 }
 
 void ECS::Tile::draw(){

@@ -8,18 +8,20 @@ namespace ECS {
 class Sprite;
 
 class Entity;
-
+class Transformable;
 
 class Tile : public Component {
 public:
   SDL_Texture *texture;
   SDL_Rect srcRect, destRect;
+  Transformable* playerTransform;
   Tile() = default;
 
   ~Tile();
 
-  Tile(int srcX, int srcY, int xpos, int ypos, std::string path);
+  Tile(int srcX, int srcY, int xpos, int ypos, std::string path, Transformable *playerTransform);
 
+  void update() override;
   void draw() override;
 
 };

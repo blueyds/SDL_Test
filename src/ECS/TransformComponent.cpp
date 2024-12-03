@@ -10,7 +10,7 @@ ECS::Transformable::Transformable(float x, float y) {
   velocity = Vector2D();
 }
 
-ECS::Transformable::Transformable(int sc) {
+ECS::Transformable::Transformable( int sc) {
   position = Vector2D();
   velocity = Vector2D();
   scale = sc;
@@ -24,10 +24,6 @@ ECS::Transformable::Transformable(float x, float y, int h, int w, int s) {
   scale = s;
 }
 
-void ECS::Transformable::update() {
-  position.x += velocity.x * speed;
-  position.y += velocity.y * speed;
-}
 
 float ECS::Transformable::scaledWidth() { return width * scale; }
 
