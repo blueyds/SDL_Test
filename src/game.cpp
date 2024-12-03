@@ -3,6 +3,7 @@
 #include "Map.hpp"
 #include "gameObject.hpp"
 #include <SDL2/SDL_image.h>
+#include <string>
 #include <iostream>
 
 #include "ECS/Components.hpp"
@@ -13,6 +14,8 @@ Map *map;
 ECS::Manager manager;
 auto &player(manager.addEntity());
 auto &wall(manager.addEntity());
+
+std::string mapFile("tileset.png");
 
 enum groupLabels : std::size_t {
   groupMap,
@@ -52,7 +55,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   // player = new GameObject("Sara_16x18_Preview.png", 0, 0);
   map = new Map();
 
-  Map::LoadMap("map16x16.map", 16, 16);
+  Map::LoadMap("map.csv",30,30);
   player.addComponent<ECS::Transformable>(0, 0, 64, 48, 1);
   player.addComponent<ECS::Sprite>(
       std::string("universal-lpc-sprite_male_01_walk-3frame.png"));
@@ -62,10 +65,6 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
 
   player.addGroup(groupPlayers);
 
-  wall.addComponent<ECS::Transformable>(300.0f, 300.0f, 300, 20, 1);
-  wall.addComponent<ECS::Sprite>(std::string("dirt.png"));
-  wall.addComponent<ECS::Collider>(std::string("wall"), player);
-  wall.addGroup(groupMap);
 }
 
 void Game::handleEvents() {
@@ -104,8 +103,9 @@ void Game::clean() {
   std::cout << "Game cleaned" << std::endl;
 }
 
-void Game::addTile(int id, int x, int y) {
+void Game::addTile(int srcX, int srcY, int xpos, int ypos) {
   auto &tile(manager.addEntity());
-  tile.addComponent<ECS::Tile>(x, y, 32, 32, id);
+  tile.addComponent<ECS::Tile>(srcX, srcY, xpos, ypos, mapFile);
+  
   tile.addGroup(groupMap);
 }

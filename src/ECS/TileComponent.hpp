@@ -1,27 +1,27 @@
 #ifndef TILE_COMPONENT_HPP_83478392
 #define TILE_COMPONENT_HPP_83478392
 
-#include "TransformComponent.hpp"
+#include "Component.hpp"
 #include <SDL2/SDL.h>
-#include <string>
 
 namespace ECS {
 class Sprite;
 
 class Entity;
 
+
 class Tile : public Component {
 public:
-  Transformable *transform;
-  Sprite *sprite;
-  SDL_Rect tileRect;
-  int tileID;
-  std::string path;
+  SDL_Texture *texture;
+  SDL_Rect srcRect, destRect;
   Tile() = default;
 
-  Tile(int x, int y, int w, int h, int id);
+  ~Tile();
 
-  void init() override;
+  Tile(int srcX, int srcY, int xpos, int ypos, std::string path);
+
+  void draw() override;
+
 };
 
 } // namespace ECS
