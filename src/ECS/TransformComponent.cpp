@@ -24,6 +24,25 @@ ECS::Transformable::Transformable(float x, float y, int h, int w, int s) {
   scale = s;
 }
 
+void ECS::Transformable::moveUp(float speed){
+  velocity = Vector2D(0,-1 * speed);
+}
+
+void ECS::Transformable::moveDown(float speed){
+  velocity = Vector2D(0,speed);
+}
+
+void ECS::Transformable::moveLeft(float speed){
+  velocity = Vector2D(-1 * speed, 0);
+}
+
+void ECS::Transformable::moveRight(float speed){
+  velocity = Vector2D(speed, 0);
+}
+
+void ECS::Transformable::stop(){
+  velocity = Vector2D(0,0);
+}
 
 float ECS::Transformable::scaledWidth() { return width * scale; }
 

@@ -2,7 +2,7 @@
 #define TRANSFORM_COMPONENT_HPP_1234351223
 
 #include "Component.hpp"
-#include <Vector2D.hpp>
+#include "Vector2D.hpp"
 
 namespace ECS {
 class Transformable : public Component {
@@ -12,7 +12,7 @@ public:
 	int height = 32;
 	int width = 32;
 	int scale = 1;
-	int speed = 3;
+	//int speed = 3;
 
 	Transformable();
 
@@ -25,6 +25,12 @@ public:
 	float scaledWidth();
 
 	float scaledHeight();
+
+	void moveUp(float speed );
+	void moveDown(float speed );
+	void moveLeft(float speed );
+	void moveRight(float speed );
+	void stop();
 };
 } // namespace ECS
 

@@ -24,8 +24,8 @@ ECS::Tile::Tile(int srcX, int srcY, int xpos, int ypos, std::string path,ECS::Tr
 }
 
 void ECS::Tile::update(){
-  destRect.x += -(playerTransform->velocity.x * playerTransform->speed );
-  destRect.y += -(playerTransform->velocity.y * playerTransform->speed );
+  destRect.x += -(playerTransform->velocity.x);
+  destRect.y += -(playerTransform->velocity.y);
 }
 
 void ECS::Tile::draw(){
