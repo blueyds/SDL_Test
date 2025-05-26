@@ -2,12 +2,12 @@
 #include "ECS/Collision.hpp"
 #include "Map.hpp"
 // #include "gameObject.hpp"
+#include "ECS/Components.hpp"
+#include "Utilities.hpp"
+#include "player.hpp"
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include <string>
-
-#include "ECS/Components.hpp"
-#include "player.hpp"
 
 // GameObject *player;
 Map *map;
@@ -163,15 +163,14 @@ void Game::addTile(int id, int row, int column) {
   int xpos = column * tileSize;
   int ypos = row * tileSize;
   // calculate the id left and right digits so we can access that in our tileset
-  int srcX = -1;
-  int srcY = -1;
-  if (id < 10) {
-    srcY = 0;
-    srcX = id * tileSetSize;
-  } else {
-    srcY = id / 10 * tileSetSize;
-    srcX = id % 10 * tileSetSize;
-  }
+  auto digits = Utilities::getBase10Digits(id, 2);
+  if (digits.size() != 2) {
+    return;
+  } // abort if we failed to return two digits
+  int srcY = digits[0] * tileSetSize;
+  int srcX = digits[1] * tileSetSize;
+
+  const std::string mapFile = "tileset.png";
 
   auto &tile(manager.addEntity());
   // ERROR player has not been created when tiles are created. this results in

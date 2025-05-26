@@ -17,5 +17,6 @@ add_library(src_stuff
 
 
 target_include_directories(src_stuff PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}
+        /opt/homebrew/include
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
