@@ -1,7 +1,7 @@
 #include "game.hpp"
 #include "Collision.hpp"
 #include "Map.hpp"
-#include "gameObject.hpp"
+#include "Utilities.hpp"
 #include <SDL2/SDL_image.h>
 #include <string>
 #include <iostream>
@@ -15,7 +15,7 @@ ECS::Manager manager;
 auto &player(manager.addEntity());
 auto &wall(manager.addEntity());
 
-std::string mapFile("tileset.png");
+std::string mapFile = "tileset.png";
 
 enum groupLabels : std::size_t {
   groupMap,
@@ -59,7 +59,10 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
     isRunning = false;
   }
   // player = new GameObject("Sara_16x18_Preview.png", 0, 0);
+  std::cout << "preparinig to create map object" << std::endl;
   map = new Map();
+
+  std::cout << "finished create map object" << std::endl;
 
   player.addComponent<ECS::Transformable>(400,320, 64, 48, 1);
   player.addComponent<ECS::Sprite>(
@@ -83,9 +86,11 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
 
   player.addGroup(groupPlayers);
 
-
+  
+  std::cout << "preparinig to load map" << std::endl;
   Map::LoadMap("map.csv",30,30);
 
+  std::cout << "finish load map" << std::endl;
 }
 
 void Game::handleEvents() {
@@ -156,11 +161,32 @@ void Game::clean() {
   std::cout << "Game cleaned" << std::endl;
 }
 
-void Game::addTile(int srcX, int srcY, int xpos, int ypos) {
+void Game::addTile(int id, int row, int column) {
+  // return if we get a bad number
+  if(id < 0) { return;}
+  constexpr int tileSetSize = 32;
+  constexpr int tileSize = 32;
+  // calculate x and y
+  int xpos = column * tileSize;
+  int ypos = row * tileSize;
+  // calculate the id left and right digits so we can access that in our tileset
+  int srcX = -1;
+  int srcY = -1;
+  if (id < 10){
+    srcY = 0;
+    srcX = id * tileSetSize;
+  } else {
+    srcY = id / 10 * tileSetSize;
+    srcX = id % 10 * tileSetSize;
+  }
+
   auto &tile(manager.addEntity());
   // ERROR player has not been created when tiles are created. this results in null and segment fault
   ECS::Transformable* pTrans = &player.getComponent<ECS::Transformable>();
-  tile.addComponent<ECS::Tile>(srcX, srcY, xpos, ypos, mapFile, pTrans);
+  auto tex = ECS::TextureTileInfo(mapFile,srcX,srcY,tileSetSize);
+  auto drawData = ECS::GameTileInfo(xpos, ypos,tileSize);
+  tile.addComponent<ECS::Tile>(tex, drawData, pTrans);
   
   tile.addGroup(groupMap);
+  //std::cout << id << "Tile created at (" << row << "," << column << ")" << std::endl;
 }

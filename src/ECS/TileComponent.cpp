@@ -7,19 +7,32 @@
 
 ECS::Tile::~Tile(){
   SDL_DestroyTexture(texture);
+};
+
+ECS::TextureTileInfo::TextureTileInfo(std::string fName, int srcX, int srcY, int tileSize ){
+  this->file_name = fName;
+  this->x = srcX;
+  this->y = srcY;
+  this->tileSize = tileSize;
 }
 
-ECS::Tile::Tile(int srcX, int srcY, int xpos, int ypos, std::string path,ECS::Transformable* playerTrans) {
+ECS::GameTileInfo::GameTileInfo(int destX, int destY, int tileSize){
+  this->tileSize = tileSize;
+  this->x = destX;
+  this->y = destY;
+}
+
+ECS::Tile::Tile(TextureTileInfo textureInfo, GameTileInfo gameTileInfo, ECS::Transformable* playerTrans) {
   playerTransform = playerTrans;
-  texture = TextureManager::LoadTexture(path);
+  texture = TextureManager::LoadTexture(textureInfo.file_name);
 
-  srcRect.x = srcX;
-  srcRect.y = srcY;
-  srcRect.h = srcRect.w = 32;
+  srcRect.x = textureInfo.x;
+  srcRect.y = textureInfo.y;
+  srcRect.h = srcRect.w = textureInfo.tileSize;
 
-  destRect.x = xpos;
-  destRect.y = ypos;
-  destRect.w = destRect.h = 32;
+  destRect.x = gameTileInfo.x;
+  destRect.y = gameTileInfo.y;
+  destRect.w = destRect.h = gameTileInfo.tileSize;
   
 }
 

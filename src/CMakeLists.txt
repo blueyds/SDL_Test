@@ -2,7 +2,6 @@
 add_library(src_stuff 
         game.cpp 
         TextureManager.cpp 
-        gameObject.cpp 
         Map.cpp
         Vector2D.cpp
         Collision.cpp

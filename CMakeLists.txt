@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 set(CMAKE_CXX_STANDARD 20)
 project(sandbox VERSION 0.1.0 LANGUAGES C CXX)
-
+include(CTest)
 find_path(SDL2_INCLUDE_DIR "SDL2/SDL.h" REQUIRED)
 
 
@@ -28,6 +28,8 @@ target_link_libraries(sandbox
         ${SDL2_LIBRARY} 
         ${SDL2_IMAGE}
 )
+add_subdirectory(tests)
+
 # post buildl make assets directoro and copy file
 add_subdirectory(assets)
 add_dependencies(sandbox copyAssets)
