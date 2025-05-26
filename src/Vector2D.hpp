@@ -15,6 +15,8 @@ public:
   Vector2D &Multiply(const Vector2D &vec);
   Vector2D &Divide(const Vector2D &vec);
 
+  Vector2D &Absolute();
+
   friend Vector2D &operator+(Vector2D &v1, const Vector2D &v2);
   friend Vector2D &operator-(Vector2D &v1, const Vector2D &v2);
   friend Vector2D &operator*(Vector2D &v1, const Vector2D &v2);

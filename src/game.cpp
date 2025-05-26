@@ -4,6 +4,7 @@
 // #include "gameObject.hpp"
 #include <SDL2/SDL_image.h>
 #include <iostream>
+#include <string>
 
 #include "ECS/Components.hpp"
 #include "player.hpp"
@@ -20,6 +21,12 @@ Game::Game(/* args */) {}
 Game::~Game() {}
 
 SDL_Renderer *Game::renderer = nullptr;
+
+constexpr int PLAYER_MOVE_UP = 1;
+constexpr int PLAYER_MOVE_DOWN = 2;
+constexpr int PLAYER_MOVE_RIGHT = 3;
+constexpr int PLAYER_MOVE_LEFT = 4;
+constexpr int PLAYER_STOP = 5;
 
 void Game::init(const char *title, int xpos, int ypos, int width, int height,
                 bool fullscreen) {
@@ -45,22 +52,37 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
     isRunning = false;
   }
   // player = new GameObject("Sara_16x18_Preview.png", 0, 0);
+  std::cout << "preparinig to create map object" << std::endl;
   map = new Map();
 
-  Map::LoadMap("map16x16.map", 16, 16);
-  player.addComponent<ECS::Transformable>(0, 0, 64, 48, 1);
+  std::cout << "finished create map object" << std::endl;
+
+  player.addComponent<ECS::Transformable>(400, 320, 64, 48, 1);
   player.addComponent<ECS::Sprite>(
       std::string("universal-lpc-sprite_male_01_walk-3frame.png"));
-  player.addComponent<ECS::Animation>(3, 500);
-  player.addComponent<ECS::Keyboard>(&event);
+  player.addComponent<ECS::Animation>(3, 100);
+  auto &key = player.addComponent<ECS::Keyboard>(&event);
+
+  key.registerKeyDown(SDLK_UP, PLAYER_MOVE_UP);
+  key.registerKeyUp(SDLK_UP, PLAYER_STOP);
+
+  key.registerKeyDown(SDLK_DOWN, PLAYER_MOVE_DOWN);
+  key.registerKeyUp(SDLK_DOWN, PLAYER_STOP);
+  key.registerKeyDown(SDLK_RIGHT, PLAYER_MOVE_RIGHT);
+  key.registerKeyUp(SDLK_RIGHT, PLAYER_STOP);
+  key.registerKeyDown(SDLK_LEFT, PLAYER_MOVE_LEFT);
+  key.registerKeyUp(SDLK_LEFT, PLAYER_STOP);
+  key.registerKeyDown(SDLK_a, PLAYER_MOVE_LEFT);
+  key.registerKeyUp(SDLK_a, PLAYER_STOP);
+
   player.addComponent<ECS::Collider>(std::string("player"), player);
 
   player.addGroup(groupPlayers);
 
-  wall.addComponent<ECS::Transformable>(300.0f, 300.0f, 300, 20, 1);
-  wall.addComponent<ECS::Sprite>(std::string("dirt.png"));
-  wall.addComponent<ECS::Collider>(std::string("wall"), player);
-  wall.addGroup(groupMap);
+  std::cout << "preparinig to load map" << std::endl;
+  Map::LoadMap("map.csv", 30, 30);
+
+  std::cout << "finish load map" << std::endl;
 }
 SDL_Event Game::event;
 void Game::handleEvents() {
@@ -73,9 +95,40 @@ void Game::handleEvents() {
     break;
   }
 }
+void processAction(int action) {
+  if (action != 0) {
+    ECS::Transformable &transform = player.getComponent<ECS::Transformable>();
+    ECS::Animation &animation = player.getComponent<ECS::Animation>();
+    switch (action) {
+    case PLAYER_MOVE_UP:
+      transform.moveUp(1);
+      animation.play(0);
+      break;
+    case PLAYER_MOVE_DOWN:
+      transform.moveDown(1);
+      animation.play(2);
+      break;
+    case PLAYER_MOVE_RIGHT:
+      transform.moveRight(1);
+      animation.play(1);
+      break;
+    case PLAYER_MOVE_LEFT:
+      transform.moveLeft(1);
+      animation.play(3);
+      break;
+    case PLAYER_STOP:
+      transform.stop();
+      animation.stop();
+      break;
+    default:
+      break;
+    };
+  };
+};
 
 void Game::update() {
   // player->update();
+  processAction(player.getComponent<ECS::Keyboard>().popAction());
   manager.refresh();
   manager.update();
 }
@@ -99,8 +152,36 @@ void Game::clean() {
   std::cout << "Game cleaned" << std::endl;
 }
 
-void Game::addTile(int id, int x, int y) {
+void Game::addTile(int id, int row, int column) {
+  // return if we get a bad number
+  if (id < 0) {
+    return;
+  }
+  constexpr int tileSetSize = 32;
+  constexpr int tileSize = 32;
+  // calculate x and y
+  int xpos = column * tileSize;
+  int ypos = row * tileSize;
+  // calculate the id left and right digits so we can access that in our tileset
+  int srcX = -1;
+  int srcY = -1;
+  if (id < 10) {
+    srcY = 0;
+    srcX = id * tileSetSize;
+  } else {
+    srcY = id / 10 * tileSetSize;
+    srcX = id % 10 * tileSetSize;
+  }
+
   auto &tile(manager.addEntity());
-  tile.addComponent<ECS::Tile>(x, y, 32, 32, id);
+  // ERROR player has not been created when tiles are created. this results in
+  // null and segment fault
+  ECS::Transformable *pTrans = &player.getComponent<ECS::Transformable>();
+  auto tex = ECS::TextureTileInfo(mapFile, srcX, srcY, tileSetSize);
+  auto drawData = ECS::GameTileInfo(xpos, ypos, tileSize);
+  tile.addComponent<ECS::Tile>(tex, drawData, pTrans);
+
   tile.addGroup(groupMap);
+  // std::cout << id << "Tile created at (" << row << "," << column << ")" <<
+  // std::endl;
 }

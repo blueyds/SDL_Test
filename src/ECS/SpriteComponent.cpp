@@ -29,6 +29,6 @@ void ECS::Sprite::update() {
   destRect.y = static_cast<int>(transform->position.y);
   destRect.h = transform->scaledHeight();
   destRect.w = transform->scaledWidth();
-}
+};
 
 void ECS::Sprite::draw() { TextureManager::Draw(texture, srcRect, destRect); }
