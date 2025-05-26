@@ -10,7 +10,6 @@ private:
   bool isRunning;
   int cnt = 0;
   SDL_Window *window;
-  SDL_Event event;
 
 public:
   Game(/* args */);
@@ -26,6 +25,14 @@ public:
   static void addTile(int id, int x, int y);
 
   static SDL_Renderer *renderer;
+  static SDL_Event event;
+
+  enum groupLabels : std::size_t {
+    groupMap,
+    groupPlayers,
+    groupEnemies,
+    groupColliders
+  };
 };
 
 #endif // AA3560F9_1506_4808_BE08_5FF69771CB4A

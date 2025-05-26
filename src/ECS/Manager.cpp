@@ -47,7 +47,8 @@ void ECS::Manager::drawGroup(ECS::Group mGroup) {
 }
 
 ECS::Entity &ECS::Manager::addEntity() {
-  Entity *e = new Entity(*this);
+  ECS::Entity::manager = this;
+  Entity *e = new Entity();
   std::unique_ptr<Entity> uPtr(e);
   entities.emplace_back(std::move(uPtr));
   return *e;

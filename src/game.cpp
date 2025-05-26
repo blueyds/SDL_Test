@@ -1,11 +1,12 @@
 #include "game.hpp"
-#include "Collision.hpp"
+#include "ECS/Collision.hpp"
 #include "Map.hpp"
-#include "gameObject.hpp"
+// #include "gameObject.hpp"
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
 #include "ECS/Components.hpp"
+#include "player.hpp"
 
 // GameObject *player;
 Map *map;
@@ -14,12 +15,6 @@ ECS::Manager manager;
 auto &player(manager.addEntity());
 auto &wall(manager.addEntity());
 
-enum groupLabels : std::size_t {
-  groupMap,
-  groupPlayers,
-  groupEnemies,
-  groupColliders
-};
 Game::Game(/* args */) {}
 
 Game::~Game() {}
@@ -67,10 +62,10 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   wall.addComponent<ECS::Collider>(std::string("wall"), player);
   wall.addGroup(groupMap);
 }
-
+SDL_Event Game::event;
 void Game::handleEvents() {
-  SDL_PollEvent(&event);
-  switch (event.type) {
+  SDL_PollEvent(&Game::event);
+  switch (Game::event.type) {
   case SDL_QUIT:
     isRunning = false;
     break;

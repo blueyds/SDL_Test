@@ -19,7 +19,10 @@ using ComponentArray = std::array<Component *, maxComponents>;
 
 class Entity {
 public:
-  Entity(Manager &mManager);
+  static Manager *manager;
+  Entity();
+
+  virtual void init() {};
 
   void update();
 
@@ -56,7 +59,6 @@ public:
 
 private:
   bool active = true;
-  Manager *manager;
   std::vector<std::unique_ptr<Component>> components;
 
   ComponentArray componentArray;

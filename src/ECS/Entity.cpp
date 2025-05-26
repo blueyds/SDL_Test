@@ -1,7 +1,8 @@
 #include "Entity.hpp"
 #include "Manager.hpp"
 
-ECS::Entity::Entity(ECS::Manager &mManager) { manager = &mManager; }
+ECS::Entity::Entity() {}
+ECS::Manager *ECS::Entity::manager = NULL;
 
 void ECS::Entity::addGroup(ECS::Group mGroup) {
   groupBitset[mGroup] = true;
