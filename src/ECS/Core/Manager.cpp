@@ -1,4 +1,4 @@
-#include "Manager.hpp"
+#include "ECS/Core/Manager.hpp"
 #include <algorithm>
 #include <memory>
 #include <vector>

@@ -1,5 +1,5 @@
-#include "Entity.hpp"
-#include "Manager.hpp"
+#include "Core/Entity.hpp"
+#include "Core/Manager.hpp"
 
 ECS::Entity::Entity() {}
 ECS::Manager *ECS::Entity::manager = NULL;

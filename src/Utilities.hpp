@@ -9,4 +9,5 @@ int getDigit(std::string inChar);
 
 std::vector<int> getBase10Digits(int input, int numDigits);
 
+bool initializeSDL();
 } // namespace Utilities

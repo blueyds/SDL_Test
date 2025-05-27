@@ -1,6 +1,6 @@
 #ifndef ENTITY_HPP_3732191
 #define ENTITY_HPP_3732191
-#include "Component.hpp"
+#include "ECS/Core/Component.hpp"
 #include <array>
 #include <bitset>
 #include <vector>

@@ -1,26 +1,6 @@
-#include "game.hpp"
-#include "ECS/Collision.hpp"
-#include "Map.hpp"
-// #include "gameObject.hpp"
-#include "ECS/Components.hpp"
+#include "RpgGame.hpp"
 #include "Utilities.hpp"
-#include "player.hpp"
-#include <SDL2/SDL_image.h>
 #include <iostream>
-#include <string>
-
-// GameObject *player;
-Map *map;
-
-ECS::Manager manager;
-auto &player(manager.addEntity());
-auto &wall(manager.addEntity());
-
-Game::Game(/* args */) {}
-
-Game::~Game() {}
-
-SDL_Renderer *Game::renderer = nullptr;
 
 constexpr int PLAYER_MOVE_UP = 1;
 constexpr int PLAYER_MOVE_DOWN = 2;
@@ -28,34 +8,21 @@ constexpr int PLAYER_MOVE_RIGHT = 3;
 constexpr int PLAYER_MOVE_LEFT = 4;
 constexpr int PLAYER_STOP = 5;
 
-void Game::init(const char *title, int xpos, int ypos, int width, int height,
-                bool fullscreen) {
-  int flags = 0;
-  if (fullscreen) {
-    flags = SDL_WINDOW_FULLSCREEN;
-  }
-  if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-    std::cout << "Subsystems Initialized..." << std::endl;
-    window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
-    if (window) {
-      std::cout << "Window created" << std::endl;
-    } else {
-      std::cout << "Window Failed" << std::endl;
-    }
-    Game::renderer = SDL_CreateRenderer(window, -1, 0);
-    if (renderer) {
-      SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-      std::cout << "Renderer created!" << std::endl;
-    }
-    isRunning = true;
-  } else {
-    isRunning = false;
-  }
+enum groupLabels : std::size_t {
+  groupMap,
+  groupPlayers,
+  groupEnemies,
+  groupColliders
+};
+
+void RpgGame::BuildScene() {
+
   // player = new GameObject("Sara_16x18_Preview.png", 0, 0);
   std::cout << "preparinig to create map object" << std::endl;
-  map = new Map();
+  map = new ECS::MapTiledCSV(manager);
 
   std::cout << "finished create map object" << std::endl;
+  player = manager.addEntity();
 
   player.addComponent<ECS::Transformable>(400, 320, 64, 48, 1);
   player.addComponent<ECS::Sprite>(
@@ -80,22 +47,15 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   player.addGroup(groupPlayers);
 
   std::cout << "preparinig to load map" << std::endl;
-  Map::LoadMap("map.csv", 30, 30);
+  map->loadMap("map.csv", 30, 30);
 
   std::cout << "finish load map" << std::endl;
+
+  RpgGame::manager = this->manager;
+  RpgGame::s_player = this->player;
 }
-SDL_Event Game::event;
-void Game::handleEvents() {
-  SDL_PollEvent(&Game::event);
-  switch (Game::event.type) {
-  case SDL_QUIT:
-    isRunning = false;
-    break;
-  default:
-    break;
-  }
-}
-void processAction(int action) {
+
+void RpgGame::processAction(int action) {
   if (action != 0) {
     ECS::Transformable &transform = player.getComponent<ECS::Transformable>();
     ECS::Animation &animation = player.getComponent<ECS::Animation>();
@@ -126,7 +86,7 @@ void processAction(int action) {
   };
 };
 
-void Game::update() {
+void RpgGame::update() {
   // player->update();
   processAction(player.getComponent<ECS::Keyboard>().popAction());
   manager.refresh();
@@ -145,14 +105,7 @@ void Game::render() {
   SDL_RenderPresent(renderer);
 }
 
-void Game::clean() {
-  SDL_DestroyWindow(window);
-  SDL_DestroyRenderer(renderer);
-  SDL_Quit();
-  std::cout << "Game cleaned" << std::endl;
-}
-
-void Game::addTile(int id, int row, int column) {
+void RpgGame::addTile(int id, int row, int column) {
   // return if we get a bad number
   if (id < 0) {
     return;
@@ -175,7 +128,8 @@ void Game::addTile(int id, int row, int column) {
   auto &tile(manager.addEntity());
   // ERROR player has not been created when tiles are created. this results in
   // null and segment fault
-  ECS::Transformable *pTrans = &player.getComponent<ECS::Transformable>();
+  ECS::Transformable *pTrans =
+      &RpgGame::s_player.getComponent<ECS::Transformable>();
   auto tex = ECS::TextureTileInfo(mapFile, srcX, srcY, tileSetSize);
   auto drawData = ECS::GameTileInfo(xpos, ypos, tileSize);
   tile.addComponent<ECS::Tile>(tex, drawData, pTrans);

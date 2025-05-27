@@ -1,7 +1,7 @@
 #ifndef SPRITE_COMPONENT_H_5674
 #define SPRITE_COMPONENT_H_5674
 
-#include "TransformComponent.hpp"
+#include "ECS/Drawing/TransformComponent.hpp"
 #include <SDL2/SDL.h>
 #include <string>
 

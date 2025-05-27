@@ -1,5 +1,5 @@
-#include "AnimationComponent.hpp"
-#include "Entity.hpp"
+#include "ECS/Drawing/AnimationComponent.hpp"
+#include "ECS/Core/Entity.hpp"
 #include <Utilities.hpp>
 
 ECS::Animation::Animation(int numFrames, int msPerFrame) {

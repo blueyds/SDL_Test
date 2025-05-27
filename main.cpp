@@ -1,12 +1,10 @@
-#include "game.hpp"
+#include "RpgGame.hpp"
+#include "SDL2/SDL_filesystem.h"
+#include "SDL2/SDL_main.h"
 #include <Utilities.hpp>
 #include <chrono>
-#include <thread>
 #include <iostream>
-#include "SDL2/SDL_main.h"
-#include "SDL2/SDL_filesystem.h"
-
-Game *game = nullptr;
+#include <thread>
 
 int main(int, char **) {
   const int FPS = 60;
@@ -14,17 +12,17 @@ int main(int, char **) {
   uint64_t frameStart;
   int frameTime;
 
-  game = new Game();
-  game->init("Craig Game", 0, 0, 800, 640, false);
-  char* path = SDL_GetBasePath();
+  RpgGame game;
+  game.init("Craig Game", 0, 0, 800, 640, false);
+  char *path = SDL_GetBasePath();
   std::cout << "BASE PATH" << std::string(path) << std::endl;
   std::cout << "Game Start " << Utilities::getTicks() << std::endl;
-  while (game->running()) {
+  while (game.running()) {
     frameStart = Utilities::getTicks();
 
-    game->handleEvents();
-    game->update();
-    game->render();
+    game.handleEvents();
+    game.update();
+    game.render();
 
     frameTime = Utilities::getTicks() - frameStart;
     if (frameDelay > frameTime) {
@@ -35,6 +33,5 @@ int main(int, char **) {
   };
 
   std::cout << "Game End " << Utilities::getTicks() << std::endl;
-  game->clean();
-  delete (game);
+  game.clean();
 }

@@ -1,6 +1,6 @@
-#include "SpriteComponent.hpp"
-#include "Entity.hpp"
-#include <TextureManager.hpp>
+#include "ECS/Drawing/SpriteComponent.hpp"
+#include "ECS/Core/Entity.hpp"
+#include "ECS/Drawing/TextureManager.hpp"
 
 ECS::Sprite::Sprite(std::string path) { setTex(path); }
 

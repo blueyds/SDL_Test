@@ -1,6 +1,6 @@
 #ifndef ECS_MANAGER_HPP_343291278
 #define ECS_MANAGER_HPP_343291278
-#include "Entity.hpp"
+#include "ECS/Core/Entity.hpp"
 #include <array>
 #include <vector>
 

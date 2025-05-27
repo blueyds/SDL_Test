@@ -1,8 +1,8 @@
 #ifndef ANIMATION_COMPONENT_HPP_232194312
 #define ANIMATION_COMPONENT_HPP_232194312
 
-#include "SpriteComponent.hpp"
-#include "TransformComponent.hpp"
+#include "ECS/Drawing/SpriteComponent.hpp"
+#include "ECS/Drawing/TransformComponent.hpp"
 
 namespace ECS {
 
