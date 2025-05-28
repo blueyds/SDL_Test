@@ -22,6 +22,7 @@ target_link_libraries(sandbox
 )
 target_include_directories(sandbox
         PRIVATE src src/ECS
+        "/opt/homebrew/include"
 )
 add_subdirectory(tests)
 
