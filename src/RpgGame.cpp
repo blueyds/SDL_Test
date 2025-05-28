@@ -1,5 +1,4 @@
 #include "RpgGame.hpp"
-#include "Utilities.hpp"
 #include <iostream>
 
 constexpr int PLAYER_MOVE_UP = 1;
@@ -15,20 +14,23 @@ enum groupLabels : std::size_t {
   groupColliders
 };
 
+  ECS::Manager *RpgGame::s_manager = nullptr;
+  ECS::Entity *RpgGame::s_player = nullptr;
+
 void RpgGame::BuildScene() {
 
   // player = new GameObject("Sara_16x18_Preview.png", 0, 0);
   std::cout << "preparinig to create map object" << std::endl;
-  map = new ECS::MapTiledCSV(manager);
+  ECS::MapTiledCSV map = ECS::MapTiledCSV(this->manager);
 
   std::cout << "finished create map object" << std::endl;
-  player = manager.addEntity();
-
-  player.addComponent<ECS::Transformable>(400, 320, 64, 48, 1);
-  player.addComponent<ECS::Sprite>(
+  ECS::Entity &tempPlayer = this->manager.addEntity();
+  player = std::addressof(tempPlayer);
+  player->addComponent<ECS::Transformable>(400, 320, 64, 48, 1);
+  player->addComponent<ECS::Sprite>(
       std::string("universal-lpc-sprite_male_01_walk-3frame.png"));
-  player.addComponent<ECS::Animation>(3, 100);
-  auto &key = player.addComponent<ECS::Keyboard>(&event);
+  player->addComponent<ECS::Animation>(3, 100);
+  auto &key = player->addComponent<ECS::Keyboard>(&event);
 
   key.registerKeyDown(SDLK_UP, PLAYER_MOVE_UP);
   key.registerKeyUp(SDLK_UP, PLAYER_STOP);
@@ -42,23 +44,23 @@ void RpgGame::BuildScene() {
   key.registerKeyDown(SDLK_a, PLAYER_MOVE_LEFT);
   key.registerKeyUp(SDLK_a, PLAYER_STOP);
 
-  player.addComponent<ECS::Collider>(std::string("player"), player);
+  player->addComponent<ECS::Collider>(std::string("player"),tempPlayer);
 
-  player.addGroup(groupPlayers);
-
+  player->addGroup(groupPlayers);
+  RpgGame::s_manager = std::addressof(this->manager);
+  RpgGame::s_player = this->player;
   std::cout << "preparinig to load map" << std::endl;
-  map->loadMap("map.csv", 30, 30);
+  map.loadMap("map.csv", 30, 30);
 
   std::cout << "finish load map" << std::endl;
 
-  RpgGame::manager = this->manager;
-  RpgGame::s_player = this->player;
+
 }
 
 void RpgGame::processAction(int action) {
   if (action != 0) {
-    ECS::Transformable &transform = player.getComponent<ECS::Transformable>();
-    ECS::Animation &animation = player.getComponent<ECS::Animation>();
+    ECS::Transformable &transform = player->getComponent<ECS::Transformable>();
+    ECS::Animation &animation = player->getComponent<ECS::Animation>();
     switch (action) {
     case PLAYER_MOVE_UP:
       transform.moveUp(1);
@@ -88,12 +90,12 @@ void RpgGame::processAction(int action) {
 
 void RpgGame::update() {
   // player->update();
-  processAction(player.getComponent<ECS::Keyboard>().popAction());
+  processAction(player->getComponent<ECS::Keyboard>().popAction());
   manager.refresh();
   manager.update();
 }
 
-void Game::render() {
+void RpgGame::render() {
   SDL_RenderClear(renderer);
   // this is where we add stuff to render
   // map->DrawMap();
@@ -125,11 +127,11 @@ void RpgGame::addTile(int id, int row, int column) {
 
   const std::string mapFile = "tileset.png";
 
-  auto &tile(manager.addEntity());
+  auto &tile(RpgGame::s_manager->addEntity());
   // ERROR player has not been created when tiles are created. this results in
   // null and segment fault
   ECS::Transformable *pTrans =
-      &RpgGame::s_player.getComponent<ECS::Transformable>();
+      &RpgGame::s_player->getComponent<ECS::Transformable>();
   auto tex = ECS::TextureTileInfo(mapFile, srcX, srcY, tileSetSize);
   auto drawData = ECS::GameTileInfo(xpos, ypos, tileSize);
   tile.addComponent<ECS::Tile>(tex, drawData, pTrans);

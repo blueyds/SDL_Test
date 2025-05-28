@@ -1,10 +1,10 @@
 #include "game.hpp"
-#include "ECS/Collision.hpp"
-#include "Map.hpp"
+//#include "ECS/Collision.hpp"
+//#include "Map.hpp"
 // #include "gameObject.hpp"
-#include "ECS/Components.hpp"
-#include "Utilities.hpp"
-#include "player.hpp"
+//#include "ECS/Components.hpp"
+//#include "Utilities.hpp"
+//#include "player.hpp"
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include <string>

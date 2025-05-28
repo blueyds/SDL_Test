@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "ECS/Collision/ColliderComponent.hpp"
-#include "ECS/Collision/Collision.hpp"
+#include "Collision/ColliderComponent.hpp"
+#include "Collision/Collision.hpp"
 
 using namespace ECS;
 bool Collision::AABB(const SDL_Rect &recA, const SDL_Rect &recB) {

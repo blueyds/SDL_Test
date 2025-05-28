@@ -2,9 +2,9 @@
 #define COLLIDER_COMPONENT_HPP_135732
 
 #include "Collision.hpp"
-#include "ECS/Core/Component.hpp"
-#include "ECS/Core/Entity.hpp"
-#include "ECS/Drawing/TransformComponent.hpp"
+#include "Core/Component.hpp"
+#include "Core/Entity.hpp"
+#include "Drawing/TransformComponent.hpp"
 
 #include <SDL2/SDL.h>
 #include <string>

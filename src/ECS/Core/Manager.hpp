@@ -22,7 +22,7 @@ public:
     uPtr->init();
     entities.emplace_back(std::move(uPtr));
     return *e;
-  }
+  };
 
 private:
   std::vector<std::unique_ptr<Entity>> entities;

@@ -1,6 +1,4 @@
 #include "player.hpp"
-#include "ECS/Components.hpp"
-#include "game.hpp"
 
 void Player::init() {
   addComponent<ECS::Transformable>(0, 0, 64, 48, 1);
@@ -8,9 +6,11 @@ void Player::init() {
       std::string("universal-lpc-sprite_male_01_walk-3frame.png"));
   addComponent<ECS::Animation>(3, 500);
   addComponent<ECS::Keyboard>(&Game::event);
-  ECS::Collider &c = addComponent<ECS::Collider>(std::string("player"));
+  //ECS::Collider &c = addComponent<ECS::Collider>(std::string("player"));
   ECS::Entity *e = this;
 
-  c.changeTestEntity(e);
-  addGroup(Game::groupPlayers);
+  /// TODO: Add changeTestEntity to the collider component 
+  //c.changeTestEntity(e);
+  /// TODO: this reference the old game class
+  //addGroup(Game::groupPlayers);
 }

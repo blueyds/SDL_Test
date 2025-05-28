@@ -1,6 +1,6 @@
 #ifndef C7F9DC2A_2C95_453E_A307_2ABEE1639AB0
 #define C7F9DC2A_2C95_453E_A307_2ABEE1639AB0
-#include "ECS/Entity.hpp"
+#include "ECS/Components.hpp"
 
 class Player : public ECS::Entity {
 public:

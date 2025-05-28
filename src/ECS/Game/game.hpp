@@ -1,7 +1,6 @@
 #ifndef AA3560F9_1506_4808_BE08_5FF69771CB4A
 #define AA3560F9_1506_4808_BE08_5FF69771CB4A
-#include "ECS/Collision/ColliderComponent.hpp"
-#include "ECS/Core/Manager.hpp"
+#include "Core/Manager.hpp"
 #include <SDL2/SDL.h>
 #include <vector>
 
